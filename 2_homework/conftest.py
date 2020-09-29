@@ -16,8 +16,8 @@ class APIClient:
         print("POST request to {}".format(url))
         return requests.post(url=url, params=params, data=data, headers=headers)
 
-    def get_brew(self, path="/", params=None):
-        url = self.base_address + path
+    def get_brew(self, path="/", params=None,query="?",cond="="):
+        url = self.base_address + path + query + cond
         print("GET request to {}".format(url))
         return requests.get(url=url, params=params)
 

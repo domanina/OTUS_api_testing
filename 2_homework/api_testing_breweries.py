@@ -24,13 +24,13 @@ import random
 # Параметр фильтрации постов по Id пользователя
 # https://jsonplaceholder.typicode.com/posts?userId=1
 #@pytest.mark.parametrize('userId', [-1, 0, 'a', 11])
-def test_api_empty_response(api_client_brew):
+def test_api_id_response(api_client_brew):
     res = api_client_brew.get_brew(
         path="/5745",
         #params={'userId': userId}
     )
     # Проверяем что на таких данных ответ пустой
-    assert res.json() == {"id":5745,"name":"Brewery In Planning - Eugene","brewery_type":"planning","street":"","city":"Eugene","state":"Oregon","postal_code":"97401-7004","country":"United States","longitude":None,"latitude":None,"phone":"","website_url":"","updated_at":"2018-08-11T21:39:11.494Z","tag_list":[]}
+    assert res.json() == {"id":5745,"name":"Brewery In Planning - Eugene","brewery_type":"planning","street":"","city":"Eugene","state":"Oregon","postal_code":"97401-7004","country":"United States","longitude":None,"latitude":None,"phone":"","website_url":"","updated_at":"2018-08-11T21:39:11.494Z"}
 
 
 # Параметр фильтрации постов по Id пользователя
@@ -46,3 +46,13 @@ def test_api_empty_response(api_client_brew):
 #     random_post_number = random.randint(1, 9)
 #     assert len(response_json) > 0
 #     assert response.json()[random_post_number]['userId'] == userId_in_response
+
+@pytest.mark.parametrize('by_som,by_item',[("by_city","san_diego"),("by_name","cooper")])
+#@pytest.mark.parametrize('by_item', ["san_diego","cooper"])
+def test_api_post_request(api_client_brew, by_som,by_item):
+    res = api_client_brew.get_brew(
+        query="?"+by_som,
+        cond="="+by_item)
+
+
+    print(res.json())
