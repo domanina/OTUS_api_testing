@@ -11,15 +11,16 @@ class APIClient:
     def __init__(self, base_address):
         self.base_address = base_address
 
+    def get_brew(self, path="/", params=None, query="?",cond="="):
+        url = self.base_address + path + query + cond
+        print("GET request to {}".format(url))
+        return requests.get(url=url, params=params)
+
     def post_brew(self, path="/", params=None, data=None, headers=None):
         url = self.base_address + path
         print("POST request to {}".format(url))
         return requests.post(url=url, params=params, data=data, headers=headers)
 
-    def get_brew(self, path="/", params=None,query="?",cond="="):
-        url = self.base_address + path + query + cond
-        print("GET request to {}".format(url))
-        return requests.get(url=url, params=params)
 
 # Тестовое API: https://api.openbrewerydb.org/breweries
 def pytest_addoption(parser):
